@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<div class="text-center">
+    <h1 class="display-4">тут будет авторизация</h1>
+    <form asp-action="SignIn" method="post" class="form-control p-5">
+        <div class="mb-3">
+            <label for="Username" class="form-label">Никнейм</label>
+            <input type="text" class="form-control" name="Username" />
+            <span class="text-danger" />
+        </div>
+        <div class="mb-3">
+            <label for="Password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" name="Password" />
+            <span class="text-danger" />
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-info text-white" style="width: 100%;">Войти</button>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label class="form-label">Нет аккаунта?</label>
+            <a asp-action="SignUp" class="btn btn-outline-info text-dark">Зарегистрироваться</a>
+        </div>
+    </form>
+</div>
