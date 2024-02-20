@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace RepairHub.Mvc.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController(IMediator mediator) : Controller
     {
         private readonly IMediator _mediator = mediator;

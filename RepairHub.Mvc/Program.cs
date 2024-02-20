@@ -48,14 +48,13 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 services.AddHostedService<DatabaseInit>()
     .AddScoped(typeof(IEntityService<>), typeof(EntityService<>))
     .AddScoped<ITokenService, TokenService>();
-services.ConfigureJwtAuthentication(builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>());
 services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 services.AddTransient(typeof(IPipelineBehavior<,>), (typeof(ValidationPipelineBehavior<,>)));
 services.AddValidatorsFromAssemblyContaining<Program>(includeInternalTypes: true);
 
 var app = builder.Build();
 
-//app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (!app.Environment.IsDevelopment())
 {

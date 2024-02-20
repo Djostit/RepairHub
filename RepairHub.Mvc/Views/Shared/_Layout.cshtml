@@ -30,13 +30,14 @@
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-truncate" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @User.Identity.Name
                                 </a>
                                 <ul class="dropdown-menu  ms-auto" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Выйти</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="SignOut">Выйти</a></li>
                                 </ul>
                             </li>
+
                         </ul>
                     </div>
                 </div>
