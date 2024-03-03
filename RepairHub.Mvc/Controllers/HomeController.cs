@@ -1,15 +1,13 @@
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RepairHub.Database.Context;
 using RepairHub.Domain.Requests;
 using RepairHub.Mvc.Infrastructure.Queries.GetData;
 using RepairHub.Mvc.Models;
 using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace RepairHub.Mvc.Controllers
@@ -30,24 +28,29 @@ namespace RepairHub.Mvc.Controllers
             try
             {
                 var response = await _mediator.Send(new AuthenticationQuery(request.Login, request.HashPassword));
+                await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+                {
+                        new(ClaimTypes.Name, request.Login),
+                        new(ClaimTypes.NameIdentifier, response.Id.ToString())
+                }, CookieAuthenticationDefaults.AuthenticationScheme)),
+                new AuthenticationProperties() { IsPersistent = true });
             }
-            catch (Exception ex) 
+            catch (ValidationException ex)
             {
-                
+                foreach(var error in ex.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(request);
             }
-            await HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
-            {
-                    new(ClaimTypes.Name, request.Login),
-                    new(ClaimTypes.NameIdentifier, "1")
-            }, CookieAuthenticationDefaults.AuthenticationScheme)),
-            new AuthenticationProperties() { IsPersistent = true });
+            
             return Redirect("/");
         }
 
         public IActionResult Privacy() => View();
-        
+
         [AllowAnonymous]
         public IActionResult AccessDenied() => View();
 

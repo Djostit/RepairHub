@@ -8,7 +8,7 @@ using RepairHub.Mvc.Infrastructure.Services.Interfaces;
 
 namespace RepairHub.Mvc.Infrastructure.Queries.GetData
 {
-    internal record AuthenticationQuery(string Login, string Password) : IRequest<UserDto>;
+    internal record AuthenticationQuery(string Login, string HashPassword) : IRequest<UserDto>;
     internal class AuthenticationQueryValidator : AbstractValidator<AuthenticationQuery>
     {
         public AuthenticationQueryValidator(IEntityService<User> service)
@@ -16,15 +16,16 @@ namespace RepairHub.Mvc.Infrastructure.Queries.GetData
             RuleFor(x => x.Login)
                 .NotEmpty().WithMessage("Обязательно");
 
-            RuleFor(x => x.Password)
+            RuleFor(x => x.HashPassword)
                 .NotEmpty().WithMessage("Обязательно");
 
             RuleFor(x => x)
                 .MustAsync(async (value, cancel) =>
                 {
                     var user = await service.Items.FirstOrDefaultAsync(x => x.Login == value.Login, cancel);
-                    return user != null && BCrypt.Net.BCrypt.Verify(user.HashPassword, value.Password);
-                }).WithMessage("Неверные учетные данные");
+                    return user != null && BCrypt.Net.BCrypt.Verify(value.HashPassword, user.HashPassword);
+                }).WithMessage("Неверные учетные данные")
+                .When(x => !string.IsNullOrEmpty(x.Login) && !string.IsNullOrEmpty(x.HashPassword));
 
         }
     }

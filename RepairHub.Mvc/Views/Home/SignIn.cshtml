@@ -1,19 +1,21 @@
-﻿@{
+﻿@using RepairHub.Domain.Requests
+@{
     ViewData["Title"] = "Вход";
 }
 
+@model UserRequest
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="text-center">
         <form asp-action="SignIn" method="post" class="p-3 bg-light rounded">
             <div class="mb-3">
-                <label for="Username" class="form-label">Никнейм</label>
-                <input type="text" class="form-control" name="Username" />
-                <span class="text-danger"></span>
+                <label for="Login" class="form-label">Логин</label>
+                <input type="text" class="form-control" name="Login" asp-for="Login" />
+                <span asp-validation-for="Login" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label for="Password" class="form-label">Пароль</label>
-                <input type="password" class="form-control" name="Password" />
-                <span class="text-danger"></span>
+                <label for="HashPassword" class="form-label">Пароль</label>
+                <input type="password" class="form-control" name="HashPassword" asp-for="HashPassword" />
+                <span asp-validation-for="HashPassword" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-info text-white" style="width: 100%;">Войти</button>

@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
   </ItemGroup>
 
@@ -26,6 +27,7 @@
     <Folder Include="Infrastructure\Commands\AddEntity\" />
     <Folder Include="Infrastructure\Commands\EditEntity\" />
     <Folder Include="Infrastructure\Commands\DeleteEntity\" />
+    <Folder Include="Infrastructure\Extensions\" />
     <Folder Include="Infrastructure\Queries\GetEntityById\" />
   </ItemGroup>
 
