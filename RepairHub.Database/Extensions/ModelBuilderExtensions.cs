@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RepairHub.Database.Entities;
 
 namespace RepairHub.Database.Extensions
 {
@@ -6,6 +7,8 @@ namespace RepairHub.Database.Extensions
     {
         public static void SeedData(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Role>().SeedData();
+            modelBuilder.Entity<User>().SeedData();
             // TODO:
             // modelBuilder.Entity<Entity>().SeedData();
         }

@@ -1,4 +1,5 @@
 using FluentValidation;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -48,9 +49,11 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 services.AddHostedService<DatabaseInit>()
     .AddScoped(typeof(IEntityService<>), typeof(EntityService<>))
     .AddScoped<ITokenService, TokenService>();
-services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
-services.AddTransient(typeof(IPipelineBehavior<,>), (typeof(ValidationPipelineBehavior<,>)));
-services.AddValidatorsFromAssemblyContaining<Program>(includeInternalTypes: true);
+builder.Services.AddMapster();
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+builder.Services.AddValidatorsFromAssemblyContaining<Program>(includeInternalTypes: true);
+
 
 var app = builder.Build();
 

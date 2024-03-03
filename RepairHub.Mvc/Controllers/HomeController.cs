@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RepairHub.Database.Context;
+using RepairHub.Domain.Requests;
+using RepairHub.Mvc.Infrastructure.Queries.GetData;
 using RepairHub.Mvc.Models;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,31 +25,24 @@ namespace RepairHub.Mvc.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(dynamic user)
+        public async Task<IActionResult> SignIn(UserRequest request)
         {
+            try
+            {
+                var response = await _mediator.Send(new AuthenticationQuery(request.Login, request.HashPassword));
+            }
+            catch (Exception ex) 
+            {
+                
+            }
             await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
             {
-                    new(ClaimTypes.Name, "Bob"),
-                    new(ClaimTypes.NameIdentifier, "1"),
-                    new(ClaimTypes.Authentication, "vffhshiuflvhksfjl")
+                    new(ClaimTypes.Name, request.Login),
+                    new(ClaimTypes.NameIdentifier, "1")
             }, CookieAuthenticationDefaults.AuthenticationScheme)),
             new AuthenticationProperties() { IsPersistent = true });
-            return Redirect("/");
-
-            //, new JwtSecurityTokenHandler()
-            //.ReadJwtToken(response)
-            //.Claims.FirstOrDefault(claim => claim.Type == "nameid")?.Value
-        }
-
-        [AllowAnonymous]
-        public IActionResult SignUp() => View();
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignUp(dynamic user)
-        {
             return Redirect("/");
         }
 
