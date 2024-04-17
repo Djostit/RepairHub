@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using RepairHub.Database.Context;
-using RepairHub.Mvc.Behavior;
 using RepairHub.Mvc.Infrastructure.Services;
 using RepairHub.Mvc.Infrastructure.Services.Interfaces;
 using RepairHub.Mvc.Middleware;
@@ -19,7 +18,7 @@ services.AddControllersWithViews();
 
 services.AddDbContext<RepairHubContext>(opt =>
 {
-    if(config.GetValue<bool>("UseInMemoryDb"))
+    if (config.GetValue<bool>("UseInMemoryDb"))
     {
         opt.UseInMemoryDatabase("repair");
     }
@@ -49,7 +48,6 @@ services.AddHostedService<DatabaseInit>()
     .AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
 builder.Services.AddMapster();
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 builder.Services.AddValidatorsFromAssemblyContaining<Program>(includeInternalTypes: true);
 
 var app = builder.Build();

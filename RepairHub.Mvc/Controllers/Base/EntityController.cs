@@ -1,37 +1,32 @@
 ﻿using FluentValidation;
-using MediatR;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using RepairHub.Database.Entities.Base.Interface;
-using RepairHub.Mvc.Infrastructure.Commands.AddEntity;
-using RepairHub.Mvc.Infrastructure.Commands.DeleteEntity;
-using RepairHub.Mvc.Infrastructure.Commands.EditEntity;
-using RepairHub.Mvc.Infrastructure.Queries.GetData;
-using RepairHub.Mvc.Infrastructure.Queries.GetEntityById;
+using RepairHub.Mvc.Infrastructure.Services.Interfaces;
 
 namespace RepairHub.Mvc.Controllers.Base
 {
-    public abstract class EntityController<TModel, TBase> : Controller
-        where TModel: IEntity
-        where TBase : IEntity
+    public abstract class EntityController<Dto, TEntity> : Controller
+        where Dto : IEntity
+        where TEntity : IEntity
     {
-        public IMediator _mediator => HttpContext.RequestServices.GetRequiredService<IMediator>();
+        public IEntityService<TEntity> _service => HttpContext.RequestServices.GetRequiredService<IEntityService<TEntity>>();
+        public IMapper _mapper => HttpContext.RequestServices.GetRequiredService<IMapper>();
         public virtual async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetDataQuery<TModel, TBase>(), cancellationToken);
-            return View(response.AsEnumerable());
+            var data = await _service.GetAll(cancellationToken);
+            var dto = _mapper.Map<List<Dto>>(data);
+            return View(dto.AsEnumerable());
         }
         public virtual async Task<IActionResult> Details(int id, CancellationToken cancellationToken)
         {
             try
             {
-                var response = await _mediator.Send(new GetEntityByIdQuery<TModel, TBase>(id), cancellationToken);
-                return View(response);
+                var data = await _service.GetById(id, cancellationToken);
+                var dto = _mapper.Map<Dto>(data);
+                return View(dto);
             }
-            catch(ValidationException)
-            {
-                return NotFound();
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "Не удалось найти информацию");
                 ModelState.AddModelError("", ex.Message);
@@ -41,25 +36,19 @@ namespace RepairHub.Mvc.Controllers.Base
         public virtual IActionResult Create() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual async Task<IActionResult> Create(TModel request, CancellationToken cancellationToken)
+        public virtual async Task<IActionResult> Create(Dto request, CancellationToken cancellationToken)
         {
             try
             {
-                await _mediator.Send(new AddEntityCommand<TModel, TBase>(request), cancellationToken);
+                var entity = _mapper.Map<TEntity>(request);
+                var result = await _service.Add(entity, cancellationToken);
             }
-            catch(ValidationException ex)
-            {
-                foreach(var error in ex.Errors)
-                {
-                    ModelState.AddModelError(error.ErrorCode, error.ErrorMessage);
-                }
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "Не удалось найти информацию");
                 ModelState.AddModelError("", ex.Message);
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -69,8 +58,9 @@ namespace RepairHub.Mvc.Controllers.Base
         {
             try
             {
-                var response = await _mediator.Send(new GetEntityByIdQuery<TModel, TBase>(id), cancellationToken);
-                return View(response);
+                var data = await _service.GetById(id, cancellationToken);
+                var dto = _mapper.Map<Dto>(data);
+                return View(dto);
             }
             catch (ValidationException)
             {
@@ -89,14 +79,7 @@ namespace RepairHub.Mvc.Controllers.Base
         {
             try
             {
-                await _mediator.Send(new DeleteEntityByIdCommand<TBase>(id), cancellationToken);
-            }
-            catch (ValidationException ex)
-            {
-                foreach (var error in ex.Errors)
-                {
-                    ModelState.AddModelError(error.ErrorCode, error.ErrorMessage);
-                }
+                await _service.DeleteById(id, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -109,12 +92,9 @@ namespace RepairHub.Mvc.Controllers.Base
         {
             try
             {
-                var response = await _mediator.Send(new GetEntityByIdQuery<TModel, TBase>(id), cancellationToken);
-                return View(response);
-            }
-            catch (ValidationException)
-            {
-                return NotFound();
+                var data = await _service.GetById(id, cancellationToken);
+                var dto = _mapper.Map<Dto>(data);
+                return View(dto);
             }
             catch (Exception ex)
             {
@@ -125,21 +105,15 @@ namespace RepairHub.Mvc.Controllers.Base
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual async Task<IActionResult> Edit(int id, TModel request, CancellationToken cancellationToken)
+        public virtual async Task<IActionResult> Edit(int id, Dto request, CancellationToken cancellationToken)
         {
-            if(request.Id != id)
+            if (request.Id != id)
                 return RedirectToAction(nameof(Details), new { id = request.Id });
             try
             {
-                await _mediator.Send(new EditEntityCommand<TModel, TBase>(request), cancellationToken);
+                var entity = _mapper.Map<TEntity>(request);
+                var result = await _service.Update(entity, cancellationToken);
                 return RedirectToAction(nameof(Details), new { id = request.Id });
-            }
-            catch (ValidationException ex)
-            {
-                foreach (var error in ex.Errors)
-                {
-                    ModelState.AddModelError(error.ErrorCode, error.ErrorMessage);
-                }
             }
             catch (Exception ex)
             {

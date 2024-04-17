@@ -70,12 +70,12 @@
             </div>
             <div class="mb-3">
                 <label asp-for="DateAddition" class="form-label"></label>
-                <input asp-for="DateAddition" class="form-control" />
+                <input asp-for="DateAddition" type="date" class="form-control" />
                 <span asp-validation-for="DateAddition" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="DateEnd" class="form-label"></label>
-                <input asp-for="DateEnd" class="form-control" />
+                <input asp-for="DateEnd" type="date" class="form-control" />
                 <span asp-validation-for="DateEnd" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -105,7 +105,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="TimeWork" class="form-label"></label>
-                <input asp-for="TimeWork" class="form-control" />
+                <input asp-for="TimeWork" type="time" class="form-control" />
                 <span asp-validation-for="TimeWork" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />

@@ -18,7 +18,7 @@ namespace RepairHub.Database.Extensions
                     Id = 2,
                     Name = "Екатерина Смирнова"
                 },
-                new() 
+                new()
                 {
                     Id = 3,
                     Name = "Дмитрий Петров"

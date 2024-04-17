@@ -1,5 +1,4 @@
-﻿using RepairHub.Database.Entities;
-using RepairHub.Database.Entities.Base;
+﻿using RepairHub.Database.Entities.Base;
 using System.ComponentModel;
 
 namespace RepairHub.Domain.Dtos
@@ -18,6 +17,6 @@ namespace RepairHub.Domain.Dtos
         public string LastName { get; set; } = null!;
         [DisplayName("Отчество")]
         public string MiddleName { get; set; } = null!;
-       
+
     }
 }
