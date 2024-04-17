@@ -11,12 +11,17 @@ namespace RepairHub.Database.Extensions
                 new()
                 {
                     Id = 1,
-                    Name = "Ok"
+                    Name = "В обработке"
                 },
                 new()
                 {
                     Id = 2,
-                    Name = "Not ok"
+                    Name = "Выполнено"
+                },
+                new()
+                {
+                    Id = 3,
+                    Name = "Отклонено"
                 }
             ]);
     }

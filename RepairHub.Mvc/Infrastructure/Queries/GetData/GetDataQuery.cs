@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿using Humanizer;
+using MapsterMapper;
 using MediatR;
 using RepairHub.Database.Entities;
 using RepairHub.Database.Entities.Base.Interface;
@@ -35,6 +36,29 @@ namespace RepairHub.Mvc.Infrastructure.Queries.GetData
     {
     }
 
+    internal class GetEmployeeQueryHandler(IEntityService<Employee> service, IMapper mapper) : GetDataQueryHandler<EmployeeDto, Employee>(service, mapper)
+    {
+    }
+
+    internal class GetEquipmentQueryHandler(IEntityService<Equipment> service, IMapper mapper) : GetDataQueryHandler<EquipmentDto, Equipment>(service, mapper)
+    {
+    }
+
+    internal class GetProblemQueryHandler(IEntityService<Problem> service, IMapper mapper) : GetDataQueryHandler<ProblemDto, Problem>(service, mapper)
+    {
+    }
+
+    internal class GetRoleQueryHandler(IEntityService<Role> service, IMapper mapper) : GetDataQueryHandler<RoleDto, Role>(service, mapper)
+    {
+    }
+
+    internal class GetStatusQueryHandler(IEntityService<Status> service, IMapper mapper) : GetDataQueryHandler<StatusDto, Status>(service, mapper)
+    {
+    }
+
+    internal class GetWorkStatusQueryHandler(IEntityService<WorkStatus> service, IMapper mapper) : GetDataQueryHandler<WorkStatusDto, WorkStatus>(service, mapper)
+    {
+    }
 
     #endregion
 }

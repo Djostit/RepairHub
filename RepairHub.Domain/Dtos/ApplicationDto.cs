@@ -1,10 +1,12 @@
-﻿using RepairHub.Database.Entities.Base;
+﻿using RepairHub.Database.Entities.Base.Interface;
 using System.ComponentModel;
 
 namespace RepairHub.Domain.Dtos
 {
-    public partial class ApplicationDto : Entity
+    public partial class ApplicationDto : IEntity
     {
+        [DisplayName("Номер заявки")]
+        public int Id { get; set; }
         [DisplayName("Статус")]
         public int StatusId { get; set; }
         [DisplayName("Проблема")]

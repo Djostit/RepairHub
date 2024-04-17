@@ -11,12 +11,27 @@ namespace RepairHub.Database.Extensions
                 new()
                 {
                     Id = 1,
-                    Name = "Ok"
+                    Name = "Проблема с загрузкой операционной системы"
                 },
                 new()
                 {
                     Id = 2,
-                    Name = "Not ok"
+                    Name = "Проблема с батареей"
+                },
+                new()
+                {
+                    Id = 3,
+                    Name = "Проблема с дисплеем"
+                },
+                new()
+                {
+                    Id = 4,
+                    Name = "Проблема с клавиатурой"
+                },
+                new()
+                {
+                    Id = 5,
+                    Name = "Проблема с зарядкой"
                 }
             ]);
     }

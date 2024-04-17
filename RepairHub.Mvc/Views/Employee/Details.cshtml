@@ -1,0 +1,17 @@
+﻿@model RepairHub.Domain.Dtos.EmployeeDto
+@{
+    ViewData["Title"] = "Просмотр";
+}
+<a asp-action="Edit" class="btn btn-primary col-auto py-2" asp-route-id="@Model?.Id">Изменить</a>
+<a asp-action="Index" class="btn btn-primary col-auto py-2">Вернуться к списку</a>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+

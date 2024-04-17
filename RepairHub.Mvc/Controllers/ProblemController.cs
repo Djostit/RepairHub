@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RepairHub.Database.Entities;
+using RepairHub.Domain.Dtos;
 
 namespace RepairHub.Mvc.Controllers
 {
-    public class ProblemController : Controller
+    [Authorize(Roles = "1, 3")]
+    public class ProblemController : Base.EntityController<ProblemDto, Problem>
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
     }
 }

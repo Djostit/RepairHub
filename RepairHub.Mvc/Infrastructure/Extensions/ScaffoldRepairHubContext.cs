@@ -13,5 +13,6 @@ namespace RepairHub.Mvc.Infrastructure.Extensions
         }
         public DbSet<UserDto>? UserDto { get; set; }
         public DbSet<ApplicationDto>? ApplicationDto { get; set; }
+        public DbSet<RepairHub.Domain.Dtos.EquipmentDto> EquipmentDto { get; set; } = default!;
     }
 }

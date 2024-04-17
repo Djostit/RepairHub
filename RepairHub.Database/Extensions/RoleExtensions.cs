@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RepairHub.Database.Entities;
+using System.Net.Sockets;
 
 namespace RepairHub.Database.Extensions
 {
@@ -11,12 +12,17 @@ namespace RepairHub.Database.Extensions
                 new()
                 {
                     Id = 1,
-                    Name = "Admin"
+                    Name = "Администратор"
+                },
+                new() 
+                {
+                    Id = 2,
+                    Name = "Пользователь"
                 },
                 new()
                 {
-                    Id = 2,
-                    Name = "Member"
+                    Id = 3,
+                    Name = "Менеджер"
                 }
             ]);
     }

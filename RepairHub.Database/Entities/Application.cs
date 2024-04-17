@@ -13,7 +13,6 @@
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string MiddleName { get; set; } = null!;
-        public static string FIO => "[{LastName}] [{FirstName}] [{MiddleName}]";
         public float Cost { get; set; }
         public TimeSpan TimeWork { get; set; }
         public virtual Employee Employee { get; set; }

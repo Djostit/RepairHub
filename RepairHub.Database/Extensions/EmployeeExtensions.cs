@@ -11,12 +11,27 @@ namespace RepairHub.Database.Extensions
                 new()
                 {
                     Id = 1,
-                    Name = "Bob"
+                    Name = "Александр Иванов"
                 },
                 new()
                 {
                     Id = 2,
-                    Name = "Tom"
+                    Name = "Екатерина Смирнова"
+                },
+                new() 
+                {
+                    Id = 3,
+                    Name = "Дмитрий Петров"
+                },
+                new()
+                {
+                    Id = 4,
+                    Name = "Анна Сергеева"
+                },
+                new()
+                {
+                    Id = 5,
+                    Name = "Сергей Козлов"
                 }
             ]);
     }

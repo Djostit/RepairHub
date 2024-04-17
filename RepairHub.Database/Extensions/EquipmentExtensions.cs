@@ -11,14 +11,32 @@ namespace RepairHub.Database.Extensions
                 new()
                 {
                     Id = 1,
-                    Name = "Ok",
-                    SerialNumber = "12312"
+                    Name = "Набор инструментов для ремонта ноутбуков",
+                    SerialNumber = "TOOLKIT001"
                 },
                 new()
                 {
                     Id = 2,
-                    Name = "Not ok",
-                    SerialNumber = "1223122"
+                    Name = "Паяльная станция Weller WLC100",
+                    SerialNumber = "SOLDER001"
+                },
+                new()
+                {
+                    Id = 3,
+                    Name = "Мультиметр Fluke 115",
+                    SerialNumber = "MULTI001"
+                },
+                new()
+                {
+                    Id = 4,
+                    Name = "Отвертка Phillips 2.0x100",
+                    SerialNumber = "SCREWDRIVER001"
+                },
+                new()
+                {
+                    Id = 5,
+                    Name = "Термоклейовка UHU 37205",
+                    SerialNumber = "GLUEGUN001"
                 }
             ]);
     }
