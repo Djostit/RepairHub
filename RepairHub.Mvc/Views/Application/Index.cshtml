@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<RepairHub.Domain.Dtos.ApplicationDto>
+@inject IEntityService<Status> status
+@inject IEntityService<Problem> problem
+@inject IEntityService<Equipment> equipment
+@inject IEntityService<WorkStatus> workstatus
+@inject IEntityService<Employee> employee
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Заявки";
+    var statuses = await status.GetAll();
+    var problems = await problem.GetAll();
+    var equipments = await equipment.GetAll();
+    var workstatuses = await workstatus.GetAll();
+    var employees = await employee.GetAll();
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a asp-action="Create" class="btn btn-primary col-auto py-2">Добавить новую заявку</a>
 <table class="table">
     <thead>
         <tr>
@@ -55,19 +60,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StatusId)
+                @statuses.First(x => x.Id == item.StatusId).Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProblemId)
+                @problems.First(x => x.Id == item.ProblemId).Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EquipmentId)
+                @equipments.First(x => x.Id == item.EquipmentId).Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WorkStatusId)
+                @workstatuses.First(x => x.Id == item.WorkStatusId).Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeId)
+                @employees.First(x => x.Id == item.EmployeeId).Name
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comment)
@@ -90,10 +95,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <td class="text-end">
+                <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }

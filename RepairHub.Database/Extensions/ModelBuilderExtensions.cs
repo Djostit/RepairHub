@@ -13,6 +13,7 @@ namespace RepairHub.Database.Extensions
             modelBuilder.Entity<Problem>().SeedData();
             modelBuilder.Entity<Equipment>().SeedData();
             modelBuilder.Entity<WorkStatus>().SeedData();
+            modelBuilder.Entity<Employee>().SeedData();
             modelBuilder.Entity<Application>().SeedData();
         }
     }
