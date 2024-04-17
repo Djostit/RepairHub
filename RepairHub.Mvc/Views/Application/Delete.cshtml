@@ -1,0 +1,96 @@
+﻿@model RepairHub.Domain.Dtos.ApplicationDto
+@inject IEntityService<Status> status
+@inject IEntityService<Problem> problem
+@inject IEntityService<Equipment> equipment
+@inject IEntityService<WorkStatus> workStatus
+@{
+    ViewData["Title"] = "Delete";
+}
+@{
+    var statuses = await status.GetAll();
+    var problems = await problem.GetAll();
+    var equipments = await equipment.GetAll();
+    var workStatuses = await workStatus.GetAll();
+}
+<a asp-action="Index" class="btn btn-primary col-auto py-2">Вернуться к списку</a>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StatusId)
+        </dt>
+        <dd class = "col-sm-10">
+            @statuses.First(x => x.Id == Model.StatusId).Name
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProblemId)
+        </dt>
+        <dd class = "col-sm-10">
+            @problems.First(x => x.Id == Model.ProblemId).Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EquipmentId)
+        </dt>
+        <dd class = "col-sm-10">
+            @equipments.First(x => x.Id == Model.EquipmentId).Name
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkStatusId)
+        </dt>
+        <dd class = "col-sm-10">
+            @workStatuses.First(x => x.Id == Model.WorkStatusId).Name
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateAddition)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateAddition)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateEnd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeWork)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeWork)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+    </form>
+</div>

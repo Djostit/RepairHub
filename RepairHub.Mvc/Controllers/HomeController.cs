@@ -16,7 +16,7 @@ namespace RepairHub.Mvc.Controllers
     public class HomeController(IMediator mediator) : Controller
     {
         private readonly IMediator _mediator = mediator;
-        public IActionResult Index() => View();
+        public IActionResult Index() => RedirectToAction(nameof(Index), "Application");
 
         [AllowAnonymous]
         public IActionResult SignIn() => View();
@@ -33,7 +33,8 @@ namespace RepairHub.Mvc.Controllers
                 new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                         new(ClaimTypes.Name, request.Login),
-                        new(ClaimTypes.NameIdentifier, response.Id.ToString())
+                        new(ClaimTypes.NameIdentifier, response.Id.ToString()),
+                        new(ClaimTypes.Role, response.RoleId.ToString())
                 }, CookieAuthenticationDefaults.AuthenticationScheme)),
                 new AuthenticationProperties() { IsPersistent = true });
             }

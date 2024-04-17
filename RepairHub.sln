@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepairHub.Mvc", "RepairHub.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepairHub.Database", "RepairHub.Database\RepairHub.Database.csproj", "{E2EE33EE-9E95-4E40-848B-AAF11F723757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairHub.Domain", "RepairHub.Domain\RepairHub.Domain.csproj", "{BC07BB5B-0250-41BB-84A0-4D5E945F3198}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepairHub.Domain", "RepairHub.Domain\RepairHub.Domain.csproj", "{BC07BB5B-0250-41BB-84A0-4D5E945F3198}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{750DF0F8-A594-4289-86BF-2E66965CAB02}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

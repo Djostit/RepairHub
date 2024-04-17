@@ -1,0 +1,63 @@
+﻿@model IEnumerable<RepairHub.Domain.Dtos.UserDto>
+@inject IEntityService<Role> service
+@{
+    ViewData["Title"] = "Пользователи";
+}
+@{
+    var roles = await service.GetAll();
+}
+<a asp-action="Create" class="btn btn-primary col-auto py-2">Добавить нового пользователя</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HashPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @roles.First(x => x.Id == item.RoleId).Name
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HashPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+                <td class="text-end">
+                    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

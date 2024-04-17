@@ -12,6 +12,7 @@ namespace RepairHub.Database.Context
         public virtual DbSet<Problem> Problems { get; set; }
         public virtual DbSet<Equipment> Equipments { get; set; }
         public virtual DbSet<WorkStatus> WorkStatuses { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Application> Applications { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

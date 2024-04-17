@@ -1,0 +1,58 @@
+﻿@model RepairHub.Domain.Dtos.UserDto
+@inject IEntityService<Role> service
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    var roles = await service.GetAll();
+}
+<a asp-action="Index" class="btn btn-primary col-auto py-2">Вернуться к списку</a>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="RoleId" class="form-label"></label>
+                <select asp-for="RoleId" class="selectpicker">
+                    @foreach(var item in roles)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Login" class="form-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="HashPassword" class="form-label"></label>
+                <input asp-for="HashPassword" class="form-control" />
+                <span asp-validation-for="HashPassword" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MiddleName" class="form-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
