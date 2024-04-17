@@ -57,20 +57,6 @@ namespace RepairHub.Mvc.Infrastructure.Services
                 { } items => await items.FirstOrDefaultAsync(item => item.Id == id, cancellation).ConfigureAwait(false),
             };
 
-        public async Task<int> GetCount(CancellationToken cancellation = default)
-        {
-            return await Items.CountAsync(cancellation).ConfigureAwait(false);
-        }
-
-        public async Task<IPage<T>> GetPage(int page, int size, CancellationToken cancellation = default)
-        {
-            return new Page(await Items.Skip(((page - 1) * size)).Take(size).ToArrayAsync(cancellation).ConfigureAwait(false), await GetCount(cancellation).ConfigureAwait(false), page, size);
-        }
-        internal record Page(IEnumerable<T> Items, int TotalCount, int CurrentPage, int Size) : IPage<T>
-        {
-            public int TotalPages => (int)Math.Ceiling((double)TotalCount / Size);
-        }
-
         public async Task<T> Update(T item, CancellationToken cancellation = default)
         {
             _context.Update(item);
